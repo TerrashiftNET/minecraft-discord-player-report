@@ -63,12 +63,7 @@ if __name__ == '__main__':
     with open("config.json") as f:
         config = json.loads(f.read())
 
-    WHITELIST_FILE = config["whitelist"]
-    PLAYER_STAT_LOCATION = config["stat_location"]
-    WEBHOOK_URL = config["webhook_url"]
-
-
-    whitelist_dictionary = load_whitelist(WHITELIST_FILE)
-    player_login_data = get_login_info(whitelist_dictionary, PLAYER_STAT_LOCATION)
+    whitelist_dictionary = load_whitelist(config["whitelist"])
+    player_login_data = get_login_info(whitelist_dictionary, config["stat_location"])
     DISCORD_PAYLOAD = prepare_payload(sort_payload(player_login_data))
-    send_report(DISCORD_PAYLOAD, WEBHOOK_URL)
+    send_report(DISCORD_PAYLOAD, config["webhook_url"])
